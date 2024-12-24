@@ -1,0 +1,71 @@
+class StringArray {
+    private String[] strings;
+    private int size;
+
+    public StringArray(int capacity) {
+        strings = new String[capacity];
+        size = 0;
+    }
+
+    public void addElement(String element) {
+        if (size >= strings.length) {
+            String[] newStrings = new String[strings.length * 2];
+            System.arraycopy(strings, 0, newStrings, 0, strings.length);
+            strings = newStrings;
+        }
+
+        strings[size++] = element;
+
+        for (int i = size - 1; i > 0 && strings[i].length() < strings[i - 1].length(); i--) {
+            String temp = strings[i];
+            strings[i] = strings[i - 1];
+            strings[i - 1] = temp;
+        }
+    }
+
+    public String getMaxLengthElement() {
+        if (size == 0) {
+            throw new RuntimeException("The list is empty.");
+        }
+        return strings[size - 1];
+    }
+
+    public double getAverageLength() {
+        if (size == 0) {
+            throw new RuntimeException("The list is empty.");
+        }
+        int totalLength = 0;
+        for (int i = 0; i < size; i++) {
+            totalLength += strings[i].length();
+        }
+        return (double) totalLength / size;
+    }
+
+    public void printStrings() {
+        if (size == 0) {
+            System.out.println("The list is empty.");
+        } else {
+            for (int i = 0; i < size; i++) {
+                System.out.println(strings[i]);
+            }
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        StringArray stringArray = new StringArray(10);
+
+        stringArray.addElement("apple");
+        stringArray.addElement("banana");
+        stringArray.addElement("kiwi");
+        stringArray.addElement("grape");
+
+        System.out.println("Strings in increasing order of length:");
+        stringArray.printStrings();
+
+        System.out.println("\nMax length element: " + stringArray.getMaxLengthElement());
+
+        System.out.println("\nAverage length: " + stringArray.getAverageLength());
+    }
+}
