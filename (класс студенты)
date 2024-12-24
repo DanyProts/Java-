@@ -1,0 +1,78 @@
+
+abstract class Student {
+    private String fullName;
+    private int course;
+    private double lastExamGrade;
+
+    
+    public Student(String fullName, int course, double lastExamGrade) {
+        this.fullName = fullName;
+        this.course = course;
+        this.lastExamGrade = lastExamGrade;
+    }
+
+    
+    public abstract void writeExam();
+
+    
+    public String getFullName() {
+        return fullName;
+    }
+
+    public int getCourse() {
+        return course;
+    }
+
+    public double getLastExamGrade() {
+        return lastExamGrade;
+    }
+
+    
+    public void printStudentInfo() {
+        System.out.println("Студент: " + fullName);
+        System.out.println("Курс: " + course);
+        System.out.println("Оценка за последний экзамен: " + lastExamGrade);
+    }
+}
+
+
+class IUStudent extends Student {
+    public IUStudent(String fullName, int course, double lastExamGrade) {
+        super(fullName, course, lastExamGrade);
+    }
+
+    
+    @Override
+    public void writeExam() {
+        System.out.println(getFullName() + " из направления 'Информационные технологии' пишет экзамен.");
+    }
+}
+
+
+class MathStudent extends Student {
+    public MathStudent(String fullName, int course, double lastExamGrade) {
+        super(fullName, course, lastExamGrade);
+    }
+
+    
+    @Override
+    public void writeExam() {
+        System.out.println(getFullName() + " из направления 'Математика' пишет экзамен.");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        IUStudent iuStudent = new IUStudent("Иванов Иван Иванович", 3, 4.5);
+        MathStudent mathStudent = new MathStudent("Петров Петр Петрович", 2, 5.0);
+
+        
+        iuStudent.printStudentInfo();
+        iuStudent.writeExam();
+
+        System.out.println();
+
+        mathStudent.printStudentInfo();
+        mathStudent.writeExam();
+    }
+}
